@@ -17,7 +17,7 @@ class TaskRepository:
         await self.session.refresh(task)
         return task
 
-    async def get(self, id):
+    async def get(self, id) -> TaskModel:
         q = select(TaskModel).where(TaskModel.id==id)
         task = await self.session.execute(q)
         return task.scalar()
