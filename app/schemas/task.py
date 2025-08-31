@@ -1,7 +1,8 @@
 from pydantic import BaseModel
 from uuid import UUID
 from datetime import datetime
-from typing import Optional, Literal
+from typing import Optional
+from app.models.enums import TaskStatus
 
 
 class TaskCreate(BaseModel):
@@ -12,6 +13,6 @@ class TaskCreate(BaseModel):
 class TaskRead(BaseModel):
     id: UUID
     type: str
-    status: Literal["pending", "processing", "done", "failed"]
+    status: TaskStatus
     created_at: datetime
     completed_at: Optional[datetime] = None
