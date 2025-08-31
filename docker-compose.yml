@@ -6,7 +6,8 @@ services:
       context: .
       dockerfile: Dockerfile
     restart: always
-    command: "fastapi run /code/app/main.py --port 8000 --reload"
+    # command: "fastapi run /code/app/main.py --port 8000 --reload"
+    command: "sleep 9000"
     ports:
       - "20800:8000"
     volumes:
@@ -23,3 +24,12 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: queuex
+  amqp:
+    image: rabbitmq:4-management
+    expose:
+      - "5672"
+      - "15672"
+    restart: always
+    environment:
+      RABBITMQ_DEFAULT_USER: kalo
+      RABBITMQ_DEFAULT_PASS: kalo
