@@ -1,3 +1,4 @@
+from pydantic import UUID4
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.models.task import TaskModel
@@ -17,7 +18,7 @@ class TaskRepository:
         await self.session.refresh(task)
         return task
 
-    async def get(self, id) -> TaskModel:
+    async def get(self, id: UUID4) -> TaskModel:
         q = select(TaskModel).where(TaskModel.id==id)
         task = await self.session.execute(q)
-        return task.scalar()
+        return task.scalar_one_or_none()
